@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: silayi-master-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=silayi_master
+    volumes:
+      - silayi_mongo_data:/data/db
+    networks:
+      - silayi-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  silayi-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: silayi-master-backend
+    restart: unless-stopped
+    ports:
+      - "${PORT:-3003}:3003"
+    environment:
+      - NODE_ENV=production
+      - PORT=3003
+      - MONGODB_URI=mongodb://mongodb:27017/silayi_master
+      - MONGODB_DB_NAME=silayi_master
+      - JWT_SECRET=${JWT_SECRET:-supersecret_jwt_key_silayi_master}
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - silayi-network
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://127.0.0.1:3003/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      start_period: 15s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  silayi_mongo_data:
+    name: silayi_mongo_data
+
+networks:
+  silayi-network:
+    name: silayi-network

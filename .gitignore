@@ -1,0 +1,81 @@
+# ==========================================================
+# Silayi Master Backend - Git Ignore Rules
+# ==========================================================
+
+# Compiled output & build artifacts
+/dist
+/build
+*.tsbuildinfo
+tsconfig.build.tsbuildinfo
+
+# Dependencies
+/node_modules
+
+# Environment and Secret credential files (NEVER commit to GitHub)
+.env
+.env.*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+!.env.example
+!.env.docker.example
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# OS Generated Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Testing & Coverage
+/coverage
+/.nyc_output
+
+# IDEs, Editors & AI Tool configs
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+*.sublime-project
+*.swp
+*.swo
+*~
+.claude/
+.cursor/
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Temporary directory & caches
+.temp
+.tmp
+.cache
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Diagnostic reports
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
