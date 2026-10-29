@@ -3,12 +3,15 @@
 # ==========================================================
 
 # Compiled output & build artifacts
+dist/
+build/
 /dist
 /build
 *.tsbuildinfo
 tsconfig.build.tsbuildinfo
 
 # Dependencies
+node_modules/
 /node_modules
 
 # Environment and Secret credential files (NEVER commit to GitHub)
@@ -20,6 +23,18 @@ tsconfig.build.tsbuildinfo
 .env.production.local
 !.env.example
 !.env.docker.example
+
+# SSL & Security Keys
+certs/
+*.pem
+*.key
+*.crt
+*.cert
+
+# Database persistent data & docker volumes
+data/
+mongo_data/
+silayi_mongo_data/
 
 # Logs
 logs
