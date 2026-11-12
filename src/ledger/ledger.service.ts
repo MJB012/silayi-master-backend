@@ -103,24 +103,18 @@ export class LedgerService {
     }
 
     const shopName = shop?.name || 'Silayi Master';
-    const gName =
-      item.garment_type === 'waistcoat'
-        ? 'واسکٹ'
-        : item.garment_type === 'kurta_pajama'
-        ? 'کرتہ پاجامہ'
-        : 'شلوار قمیض';
+    const balance = item.balance_amount || 0;
+    const balanceText =
+      balance > 0
+        ? `بقیہ واجب الادا رقم: *روپے ${balance}*`
+        : `بقیہ رقم: *مکمل ادا شدہ*`;
 
-    let text = `*السلام علیکم ${item.client_name} صاحب!*\n`;
-    text += `*${shopName}* کی طرف سے سوٹ کی پرچی:\n`;
-    text += `سیریل نمبر: *${item.serial_number}* | پرچی: *#${item.receipt_number}*\n`;
-    text += `لباس: *${gName}* | تاریخ: *${item.order_date}*\n`;
-    text += `کل رقم: روپے ${item.total_amount}\n`;
-    text += `وصول رقم: روپے ${item.advance_amount}\n`;
-    text += `بقیہ رقم: روپے ${item.balance_amount}\n`;
-    if (item.style_notes) {
-      text += `سلائی ہدایات: ${item.style_notes}\n`;
-    }
-    text += `\nشکریہ!`;
+    let text = `*السلام علیکم ${item.client_name} صاحب!*\n\n`;
+    text += `*${shopName}* کی طرف سے آپ کو مطلع کیا جاتا ہے کہ آپ کا سوٹ سلائی ہو کر تیار ہو چکا ہے۔\n`;
+    text += `برائے مہربانی تشریف لا کر اپنا سوٹ وصول فرما لیں۔\n\n`;
+    text += `پرچی نمبر: *#${item.receipt_number}*\n`;
+    text += `${balanceText}\n\n`;
+    text += `شکریہ!`;
 
     const encoded = encodeURIComponent(text);
     const cleanPhone = item.client_phone.replace(/[\s\-()]/g, '');

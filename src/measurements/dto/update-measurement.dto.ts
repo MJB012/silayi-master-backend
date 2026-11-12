@@ -15,6 +15,10 @@ export class UpdateMeasurementDto {
 
   @IsOptional()
   @IsString()
+  receipt_number?: string;
+
+  @IsOptional()
+  @IsString()
   client_name?: string;
 
   @IsOptional()
@@ -24,6 +28,10 @@ export class UpdateMeasurementDto {
   @IsOptional()
   @IsEnum(GarmentTypeEnum)
   garment_type?: GarmentTypeEnum;
+
+  @IsOptional()
+  @IsString()
+  order_date?: string;
 
   @IsOptional()
   @IsString()
